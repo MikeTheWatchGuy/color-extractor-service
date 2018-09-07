@@ -1,27 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="XYZ123">
+
+    <title>Drag and Drop File Uploading</title>
+
+    <link rel="canonical" href="https://rmotr.com/">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts.js') }}"></script>
   </head>
   <body>
-    <h1>Hello world</h1>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <form class="" action="/extract" method="post" enctype='multipart/form-data'>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
+    <div class="container" role="main">
+    	<p class="title">Colors analyzer</p>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}" charset="utf-8"></script>
+      <p class="subtitle">
+        Upload your GIF collection to share on Facebook, Twitter,
+        Instagram, text message, email, and everywhere else.
+      </p>
+
+      <form id="zdrop">
+        <div id="fileupload-content">
+          <div class="icon">
+            <i class="material-icons">add_photo_alternate</i>
+          </div>
+
+          <div class="title">
+            Drag and drop your image
+          </div>
+
+          <div class="subtitle">
+            Or click and choose one
+          </div>
+        </div>
+      </form>
+
+      <div id="url-container" class="box">
+        <form id="url-form">
+          <p class="title">Or paste any image URL and press enter</p>
+
+          <input type="url" id="image-url" name="image-url" placeholder="Image URL">
+        </form>
+      </div>
+
+      <div id="preview-container" class="box">
+        <div id="zdrop-template">
+          <img data-dz-thumbnail></img>
+          <hr>
+
+          <div class="chart-container">
+            <canvas id="chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div id="info-container" class="box">
+        <p class="title">Or use it as a service</p>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://rmotr.com/" target="_blank">
+        <img src="assets/images/favicon.png">
+      </a>
+    </footer>
   </body>
 </html>
