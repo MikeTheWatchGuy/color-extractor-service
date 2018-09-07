@@ -31,25 +31,20 @@ $(document).ready(function(){
 
       this.on("sending", function(file, response) {
         // called before sending
-        console.log("sending");
 
-        // TODO: add loader
+        toggleLoader('show');
       });
 
       this.on("success", function(file, response) {
-        console.log("SUCCESS");
-        console.log(response.colors);
-
+        console.log("SUCCESS", file, response);
         makeChart(response.colors);
+        toggleLoader('hide');
       });
 
-      this.on("complete", function(file, response) {
-        console.log(response);
-
-        // TODO: remove loader
-
-        // makeChart();
-      });
+      this.on("error", function(file, response) {
+        console.log("ERROR", file, response);
+        toggleLoader('hide');
+      })
     }
   });
 
@@ -77,21 +72,16 @@ $(document).ready(function(){
           zdrop.emit("thumbnail", mockFile, imgUrl);
           zdrop.emit("sending", mockFile);
 
-          // TODO: jquery.ajax
-         //  $('#url-form').ajaxForm(function(data) {
-         //     console.log(data);
-         // });
-
-         jQuery.ajax({
+         $.ajax({
            type: "POST",
            dataType: "json",
            url: '/extract',
            data: {
              'url': imageURL
            },
-           success: function(data, status){
-             console.log(data)
-             zdrop.emit("success", mockFile, data);
+           success: function(response, status){
+             console.log(response);
+             zdrop.emit("success", mockFile, response);
            }
          })
 
@@ -104,28 +94,22 @@ $(document).ready(function(){
   });
 
   // add chart
-  var makeChart = function(colors) {
-    console.log(colors);
-
+  var makeChart = function(colorsObject) {
+    var colors = Object.keys(colorsObject).map(function(key) {
+      return key.toUpperCase();
+    });
+    var values = Object.keys(colorsObject).map(function(key) {
+      return colorsObject[key]
+    });
     var ctx = $("#chart");
     var pieChart = new Chart(ctx, {
       type: 'pie',
       data: {
         datasets: [{
-          data: [10, 20, 30, 40],
-          backgroundColor: [
-            '#ff6384',
-            '#36a2eb',
-            '#cc65fe',
-            '#ffce56',
-          ]
+          data: values,
+          backgroundColor: colors
         }],
-        labels: [
-          '#ff6384'.toUpperCase(),
-          '#36a2eb'.toUpperCase(),
-          '#cc65fe'.toUpperCase(),
-          '#ffce56'.toUpperCase(),
-        ]
+        labels: colors
       },
       options: {
         legend: {
@@ -135,9 +119,9 @@ $(document).ready(function(){
              fontSize: 13,
              fontStyle: "bold"
            },
-           onClick: function(e, legendItem) {
-             console.log(legendItem.text);
-             return e.stopPropagation()
+           onClick: function(event, legendItem) {
+             // console.log(legendItem.text);
+             return event.stopPropagation()
            }
         },
       }
@@ -167,6 +151,19 @@ $(document).ready(function(){
     });
   }
 });
+
+// toggle loader
+var toggleLoader = function(action) {
+  if (action == 'show') {
+    $("#loader-container").show();
+    $('body').css('overflow', 'hidden');
+  }
+
+  if (action == 'hide') {
+    $("#loader-container").hide();
+    $('body').css('overflow', 'initial');
+  }
+}
 
 // $(function() {
 //  // bind 'myForm' and provide a simple callback function
