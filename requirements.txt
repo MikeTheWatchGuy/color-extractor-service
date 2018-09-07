@@ -1,0 +1,5 @@
+Flask
+Pillow
+scipy
+numpy
+scikit-learn
