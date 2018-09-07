@@ -78,8 +78,24 @@ $(document).ready(function(){
           zdrop.emit("sending", mockFile);
 
           // TODO: jquery.ajax
+         //  $('#url-form').ajaxForm(function(data) {
+         //     console.log(data);
+         // });
 
-          zdrop.emit("complete", mockFile);
+         jQuery.ajax({
+           type: "POST",
+           dataType: "json",
+           url: '/extract',
+           data: {
+             'url': imageURL
+           },
+           success: function(data, status){
+             console.log(data)
+             zdrop.emit("success", mockFile, data);
+           }
+         })
+
+          // zdrop.emit("complete", mockFile);
         } else {
           isValid.showErrors({ "image-url": "Please enter a valid image URL." });
         }
