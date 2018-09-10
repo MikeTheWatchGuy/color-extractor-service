@@ -164,10 +164,3 @@ var toggleLoader = function(action) {
     $('body').css('overflow', 'initial');
   }
 }
-
-// $(function() {
-//  // bind 'myForm' and provide a simple callback function
-//  $('form').ajaxForm(function(data) {
-//      console.log(data);
-//  });
-// });
