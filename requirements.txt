@@ -3,3 +3,4 @@ Pillow
 scipy
 numpy
 scikit-learn
+requests==2.19.1

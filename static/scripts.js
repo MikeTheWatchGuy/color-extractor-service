@@ -36,13 +36,18 @@ $(document).ready(function(){
       });
 
       this.on("success", function(file, response) {
-        console.log("SUCCESS", file, response);
+        // console.log("SUCCESS", file, response);
         makeChart(response.colors);
         toggleLoader('hide');
+
+        // scroll to preview
+        $('html, body').animate({
+          scrollTop: $("#preview-container").offset().top
+        }, 500);
       });
 
       this.on("error", function(file, response) {
-        console.log("ERROR", file, response);
+        // console.log("ERROR", file, response);
         toggleLoader('hide');
       })
     }
@@ -80,7 +85,7 @@ $(document).ready(function(){
              'url': imageURL
            },
            success: function(response, status){
-             console.log(response);
+             // console.log(response);
              zdrop.emit("success", mockFile, response);
            }
          })
