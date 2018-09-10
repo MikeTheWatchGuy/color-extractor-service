@@ -35,9 +35,11 @@ a:hover {
 	margin: 0px auto;
 	padding: 20px 15px 0px;
 }
-
-.title {
+p{
 	color: #FFF;
+
+}
+.title {
   font-size: 32px;
 	font-weight: 900;
 	text-transform: uppercase;
@@ -136,8 +138,13 @@ input:active {
 
 #url-container .title,
 #info-container .title,
+#info-container p,
 .error {
 	margin: 0 40px;
+}
+
+#info-container .title{
+	margin-bottom: 20px
 }
 
 #preview-container #zdrop-template {

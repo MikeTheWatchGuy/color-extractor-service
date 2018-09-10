@@ -1,0 +1,13 @@
+{
+    "production": {
+        "app_function": "app.app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "project_name": "color-extractor",
+        "runtime": "python3.6",
+        "slim_handler": true,
+        "s3_bucket": "zappa-color-extractor",
+        "certificate_arn": "arn:aws:acm:us-east-1:688256594416:certificate/57022003-a1bc-4084-903c-c9189a161b3c",
+        "domain": "colors.rmotr.com",
+    }
+}
