@@ -16,31 +16,37 @@ Theres a Jupyter Notebook with a step by step explanation in this same repo: [de
 
 There's a simple API endpoint to use it as a service: `/api/extract`. It accepts two different types of requests:
 
-##### Providing a URL
+#### Providing a URL
 
 A JSON POST request with two parameters:
 * `url` (**mandatory**): The URL of the picture to extract colors from
 * `clusters` (optional): The number of clusters to use (default=6)
 
-**Example:**
+##### Example:
 
 ```bash
 $ curl -X POST -d '{"url": "https://images.unsplash.com/photo-1536506591919-966afe6f7c09?fit=crop&w=750&q=80"}' -H "Content-Type: application/json" https://colors.rmotr.com/api/extract
 ```
 
-##### Providing a File
+#### Providing a File
 
 A `multipart/form-data` request with two form values:
 * `file` (**mandatory**): The image file to extract colors from
 * `clusters` (optional): The number of clusters to use (default=6)
 
-**Example:**
+##### Example
 
 ```bash
 $ curl -X POST -F "file=@demo/sample-image-1.jpg" -F "clusters=7" http://localhost:5000/api/extract
 ```
 
-#### Image Credit
+## Authors
+
+Frontend [magic](https://media.giphy.com/media/ujUdrdpX7Ok5W/giphy.gif) by:
+
+<a href="https://github.com/maticaputti"><img src="https://avatars2.githubusercontent.com/u/7065401?s=90&v=4"></a>
+
+## Image Credits
 
 Sample images from [unsplash](https://unsplash.com):
 
