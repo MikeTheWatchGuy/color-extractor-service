@@ -47,6 +47,8 @@ def extract_colors_from_file(file, clusters=None):
     image = image.resize((new_width, new_height), Image.ANTIALIAS)
 
     img_array = np.array(image)
+    if img_array.shape[2] > 3:
+        img_array = img_array[:, :, :3]
     img_vector = img_array.reshape((img_array.shape[0] * img_array.shape[1], 3))
 
     # Create model
